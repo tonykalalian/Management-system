@@ -82,13 +82,22 @@ exports.getUserById = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { fname, lname, role } = req.body;
+    const { username, fname, lname, role } = req.body;
 
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Check if the new username is not already in use by another user
+    if (user.username !== username) {
+      const existingUser = await User.findOne({ username });
+      if (existingUser) {
+        return res.status(400).json({ message: "Username already exists" });
+      }
+    }
+
+    user.username = username;
     user.fname = fname;
     user.lname = lname;
     user.role = role;
@@ -101,16 +110,19 @@ exports.updateUser = async (req, res) => {
 };
 
 // Delete a user
+// Delete a user
+// Delete a user
 exports.deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
-    const user = await User.findById(userId);
-    if (!user) {
+    const deletedUser = await User.deleteOne({ _id: userId });
+    if (deletedUser.deletedCount === 0) {
       return res.status(404).json({ message: "User not found" });
     }
-    await user.remove();
+
     res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
+    console.error("Error while deleting user:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };

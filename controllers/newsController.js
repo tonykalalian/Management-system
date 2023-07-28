@@ -72,13 +72,13 @@ exports.updateNews = async (req, res) => {
 exports.deleteNews = async (req, res) => {
   try {
     const newsId = req.params.id;
-    const news = await News.findById(newsId);
-    if (!news) {
+    const deletedNews = await News.findByIdAndDelete(newsId);
+    if (!deletedNews) {
       return res.status(404).json({ message: "News entry not found" });
     }
-    await news.remove();
     res.status(200).json({ message: "News entry deleted successfully" });
   } catch (error) {
+    console.error("Error while deleting news:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 };
