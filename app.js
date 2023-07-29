@@ -6,10 +6,13 @@ const mongoose = require("./config/config"); // Import the config.js file for th
 const userRoutes = require("./routes/user");
 const newsRoutes = require("./routes/news");
 const categoryRoutes = require("./routes/category");
+const corsOptions = {
+  origin: "http://localhost:3001",
+};
 
 // Middleware
 app.use(express.json()); // To parse JSON requests
-
+app.use(cors(corsOptions));
 // Use routes
 app.use("/users", userRoutes);
 app.use("/news", newsRoutes);
