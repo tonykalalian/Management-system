@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("./config/config"); // Import the config.js file for the database connection
-
+const cors = require("cors");
 // Import routes
 const userRoutes = require("./routes/user");
 const newsRoutes = require("./routes/news");
