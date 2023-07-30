@@ -10,7 +10,8 @@ import SuperAdminDashboard from "./components/SuperAdminDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import NewsEntryDashboard from "./components/NewsEntryDashboard";
 import ManageUsers from "./components/ManageUsers";
-
+import ManageCategory from "./components/ManageCategory";
+import ManageNews from "./components/ManageNews";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState("");
@@ -77,7 +78,12 @@ const App = () => {
           component={NewsEntryDashboard}
         />
         <Route exact path="/dashboard/manageusers" component={ManageUsers} />{" "}
-        {/* Add this route */}
+        <Route
+          exact
+          path="/dashboard/managecategories"
+          component={ManageCategory}
+        />{" "}
+        <Route exact path="/dashboard/managenews" component={ManageNews} />{" "}
         <Route component={Login} /> {/* Default route for Login component */}
       </Switch>
     </Router>

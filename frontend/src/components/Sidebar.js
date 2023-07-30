@@ -12,18 +12,23 @@ const Sidebar = ({ userRole, handleLogout }) => {
   const sidebarLinks = [
     {
       title: "Categories",
+      icon: <FontAwesomeIcon icon={faLanguage} />,
+      link: "/dashboard/managecategories",
+    },
+    {
+      title: "Language",
       icon: <BiCategory size={16} />,
-      link: "/categories",
+      link: "#",
     },
     {
       title: "Tags",
       icon: <FontAwesomeIcon icon={faTags} />,
-      link: "/dashboard",
+      link: "#",
     },
     {
       title: "News",
       icon: <BiNews size={16} />,
-      link: "/orders",
+      link: "/dashboard/managenews",
     },
   ];
 
