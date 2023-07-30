@@ -12,11 +12,33 @@ const SuperAdminDashboard = () => {
   return (
     <div className="d-flex">
       <Sidebar userRole={userRole} />
-      <div>
-        <h1 style={{ justifyContent: "center" }}>
-          Welcome to the SuperAdmin Dashboard
-        </h1>
+      <div className="container py-4">
+        <h1 className="mb-4">Welcome to the SuperAdmin Dashboard</h1>
         <p>This is the dashboard for Superadmin.</p>
+        <div className="row">
+          <div className="col-md-6">
+            <div className="card mb-3">
+              <div className="card-header">Card Title 1</div>
+              <div className="card-body">
+                <p className="card-text">
+                  This is a sample card content. You can add more cards here
+                  with relevant information for the SuperAdmin.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="card mb-3">
+              <div className="card-header">Card Title 2</div>
+              <div className="card-body">
+                <p className="card-text">
+                  This is another sample card content. You can add more cards
+                  here with relevant information for the SuperAdmin.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

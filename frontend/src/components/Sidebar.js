@@ -1,7 +1,7 @@
 import React from "react";
 import { BiCategory, BiNews, BiSync } from "react-icons/bi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faTags, faLanguage } from "@fortawesome/free-solid-svg-icons";
+import { faLanguage, faTags, faUser,faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
@@ -9,35 +9,72 @@ const Sidebar = ({ userRole, handleLogout }) => {
   const location = useLocation();
   const history = useHistory();
 
-  const sidebarLinks = [
-    {
-      title: "Categories",
-      icon: <FontAwesomeIcon icon={faLanguage} />,
-      link: "/dashboard/managecategories",
-    },
-    {
-      title: "Language",
-      icon: <BiCategory size={16} />,
-      link: "#",
-    },
-    {
-      title: "Tags",
-      icon: <FontAwesomeIcon icon={faTags} />,
-      link: "#",
-    },
-    {
-      title: "News",
-      icon: <BiNews size={16} />,
-      link: "/dashboard/managenews",
-    },
-  ];
+  const sidebarLinks = [];
 
   if (userRole === "SuperAdmin") {
-    sidebarLinks.push({
-      title: "User Management",
-      icon: <FontAwesomeIcon icon={faUser} />,
-      link: "/dashboard/manageusers",
-    });
+    sidebarLinks.push(
+      {
+        title: "Categories",
+        icon: <BiCategory size={16} />,
+        link: "/dashboard/managecategories",
+      },
+      {
+        title: "Language",
+        icon: <FontAwesomeIcon icon={faLanguage} size={16} />,
+        link: "#",
+      },
+      {
+        title: "Tags",
+        icon: <FontAwesomeIcon icon={faTags} size={16} />,
+        link: "#",
+      },
+      {
+        title: "News",
+        icon: <BiNews size={16} />,
+        link: "/dashboard/managenews",
+      },
+      {
+        title: "User Management",
+        icon: <FontAwesomeIcon icon={faUser} />,
+        link: "/dashboard/manageusers",
+      }
+    );
+  } else if (userRole === "Admin") {
+    sidebarLinks.push(
+      {
+        title: "Categories",
+        icon: <BiCategory size={16} />,
+        link: "/dashboard/managecategories",
+      },
+      {
+        title: "Language",
+        icon: <FontAwesomeIcon icon={faLanguage} size={16} />,
+        link: "#",
+      },
+      {
+        title: "Tags",
+        icon: <FontAwesomeIcon icon={faTags} size={16} />,
+        link: "#",
+      },
+      {
+        title: "News",
+        icon: <BiNews size={16} />,
+        link: "/dashboard/managenews",
+      }
+    );
+  } else if (userRole === "NewsEntry") {
+    sidebarLinks.push(
+      {
+        title: "My Profile",
+        icon: <FontAwesomeIcon icon={faUser} />,
+        link: "/dashboard/profile",
+      },
+      {
+        title: "Add News",
+        icon: <BiNews size={16} />,
+        link: "/dashboard/addnews",
+      }
+    );
   }
 
   const handleLogoutClick = () => {
@@ -53,13 +90,6 @@ const Sidebar = ({ userRole, handleLogout }) => {
     return (
       <ul className="nav flex-column mb-auto">
         {sidebarLinks.map((link) => {
-          // Check if the user is NewsEntry and the link is "Categories" or "Tags"
-          if (
-            userRole === "NewsEntry" &&
-            (link.title === "Categories" || link.title === "Tags")
-          ) {
-            return null; // Hide the link for NewsEntry user
-          }
           return (
             <li className="nav-item" key={link.title}>
               <Link
@@ -78,8 +108,8 @@ const Sidebar = ({ userRole, handleLogout }) => {
           );
         })}
         <li className="nav-item" key="logout">
-          <button className="nav-link link-dark" onClick={handleLogoutClick}>
-            Logout
+        <button className="nav-link link-dark" onClick={handleLogoutClick}>
+            <FontAwesomeIcon icon={faSignOutAlt} size={16} /> Logout
           </button>
         </li>
       </ul>
