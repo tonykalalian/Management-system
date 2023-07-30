@@ -9,7 +9,6 @@ const categoryRoutes = require("./routes/category");
 const corsOptions = {
   origin: "http://localhost:3001",
 };
-const newsController = require("./controllers/newsController");
 // Middleware
 app.use(express.json()); // To parse JSON requests
 app.use(cors(corsOptions));

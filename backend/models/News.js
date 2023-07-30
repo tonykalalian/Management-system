@@ -15,6 +15,7 @@ const newsSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
+  pictures: [{ type: mongoose.Schema.Types.ObjectId, ref: "NewsPicture" }],
 });
 
 module.exports = mongoose.model("News", newsSchema);
