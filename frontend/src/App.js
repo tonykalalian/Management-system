@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import SuperAdminDashboard from "./components/SuperAdminDashboard";
 import AdminDashboard from "./components/AdminDashboard";
 import NewsEntryDashboard from "./components/NewsEntryDashboard";
+import ManageUsers from "./components/ManageUsers";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -30,13 +31,12 @@ const App = () => {
     setUserRole(role);
   };
 
-  // Handle logout
-  // const handleLogout = () => {
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("userRole");
-  //   setIsLoggedIn(false);
-  //   setUserRole("");
-  // };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    setIsLoggedIn(false);
+    setUserRole("");
+  };
 
   // Redirect to the appropriate dashboard based on the user's role
   const renderDashboard = () => {
@@ -63,7 +63,12 @@ const App = () => {
         <Route
           exact
           path="/dashboard/superadmin"
-          component={SuperAdminDashboard}
+          render={() => (
+            <SuperAdminDashboard
+              userRole={userRole}
+              handleLogout={handleLogout}
+            />
+          )}
         />
         <Route exact path="/dashboard/admin" component={AdminDashboard} />
         <Route
@@ -71,6 +76,8 @@ const App = () => {
           path="/dashboard/newsentry"
           component={NewsEntryDashboard}
         />
+        <Route exact path="/dashboard/manageusers" component={ManageUsers} />{" "}
+        {/* Add this route */}
         <Route component={Login} /> {/* Default route for Login component */}
       </Switch>
     </Router>

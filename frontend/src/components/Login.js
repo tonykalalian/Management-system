@@ -26,7 +26,6 @@ const Login = () => {
         formData
       );
       const { token, user } = response.data;
-      // Replace 'userRole' with the actual key in the response that holds the user's role
       const userRole = user.role;
 
       // Store the token and user role in local storage (or use a more secure method like cookies)

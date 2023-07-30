@@ -1,22 +1,23 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const SuperAdminDashboard = () => {
-  const history = useHistory();
+  const userRole = localStorage.getItem("userRole");
 
-  const handleLogout = () => {
-    // Remove the token and user role from local storage
-    localStorage.removeItem("token");
-    localStorage.removeItem("userRole");
-
-    // Redirect to the login page after logout
-    history.push("/");
-  };
+  // Access control logic for SuperAdminDashboard
+  if (userRole !== "SuperAdmin") {
+    return <div>You don't have access to this page.</div>;
+  }
 
   return (
-    <div>
-      {/* Your content specific to SuperAdmin */}
-      <button onClick={handleLogout}>Logout</button>
+    <div className="d-flex">
+      <Sidebar userRole={userRole} />
+      <div>
+        <h1 style={{ justifyContent: "center" }}>
+          Welcome to the SuperAdmin Dashboard
+        </h1>
+        <p>This is the dashboard for Superadmin.</p>
+      </div>
     </div>
   );
 };
