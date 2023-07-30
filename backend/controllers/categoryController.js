@@ -14,7 +14,6 @@ exports.getAllCategories = async (req, res) => {
 exports.createCategory = async (req, res) => {
   try {
     const { code, title } = req.body;
-
     const newCategory = new Category({
       code,
       title,

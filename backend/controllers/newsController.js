@@ -1,5 +1,6 @@
 const News = require("../models/News");
-
+const User = require("../models/User");
+const Category = require("../models/Category");
 // Get all news
 exports.getAllNews = async (req, res) => {
   try {
@@ -79,6 +80,25 @@ exports.deleteNews = async (req, res) => {
     res.status(200).json({ message: "News entry deleted successfully" });
   } catch (error) {
     console.error("Error while deleting news:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+exports.getAllNewsWithInfo = async (req, res) => {
+  try {
+    console.log("Fetching news...");
+    const news = await News.find()
+      .populate("category", "title")
+      .populate("addedBy", "username fname lname");
+
+    if (!news) {
+      console.log("No news found.");
+      return res.status(404).json({ message: "No news found" });
+    }
+
+    console.log("News fetched successfully:", news);
+    res.status(200).json(news);
+  } catch (error) {
+    console.log("Error in getAllNewsWithInfo:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
