@@ -1,7 +1,12 @@
 import React from "react";
 import { BiCategory, BiNews, BiSync } from "react-icons/bi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLanguage, faTags, faUser,faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLanguage,
+  faTags,
+  faUser,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
@@ -108,7 +113,7 @@ const Sidebar = ({ userRole, handleLogout }) => {
           );
         })}
         <li className="nav-item" key="logout">
-        <button className="nav-link link-dark" onClick={handleLogoutClick}>
+          <button className="nav-link link-dark" onClick={handleLogoutClick}>
             <FontAwesomeIcon icon={faSignOutAlt} size={16} /> Logout
           </button>
         </li>
