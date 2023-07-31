@@ -13,7 +13,6 @@ import ManageUsers from "./components/ManageUsers";
 import ManageCategory from "./components/ManageCategory";
 import ManageNews from "./components/ManageNews";
 import AddNews from "./components/AddNews";
-import ManageProfile from "./components/ManageProfile";
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState("");
@@ -86,7 +85,6 @@ const App = () => {
           component={ManageCategory}
         />{" "}
         <Route exact path="/dashboard/managenews" component={ManageNews} />{" "}
-        <Route exact path="/dashboard/profile" component={ManageProfile} />{" "}
         <Route exact path="/dashboard/addnews" component={AddNews} />{" "}
         <Route component={Login} /> {/* Default route for Login component */}
       </Switch>

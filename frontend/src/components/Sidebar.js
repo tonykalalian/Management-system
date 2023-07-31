@@ -68,18 +68,11 @@ const Sidebar = ({ userRole, handleLogout }) => {
       }
     );
   } else if (userRole === "NewsEntry") {
-    sidebarLinks.push(
-      {
-        title: "My Profile",
-        icon: <FontAwesomeIcon icon={faUser} />,
-        link: "/dashboard/profile",
-      },
-      {
-        title: "Add News",
-        icon: <BiNews size={16} />,
-        link: "/dashboard/addnews",
-      }
-    );
+    sidebarLinks.push({
+      title: "Add News",
+      icon: <BiNews size={16} />,
+      link: "/dashboard/addnews",
+    });
   }
 
   const handleLogoutClick = () => {
@@ -126,18 +119,15 @@ const Sidebar = ({ userRole, handleLogout }) => {
       className="d-flex flex-column flex-shrink-0 p-3 bg-light"
       style={{ width: "280px" }}
     >
-      <Link
-        to="/"
-        className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-      >
+      <div className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
         <svg className="bi me-2" width="40" height="32">
           <use xlinkHref="#bootstrap" />
         </svg>
-        <span className="fs-4">
+        <span className="fs-4" style={{ cursor: "pointer" }}>
           <BiSync />
           Sync
         </span>
-      </Link>
+      </div>
       <hr />
       {getSidebarLinks()}
       <hr />

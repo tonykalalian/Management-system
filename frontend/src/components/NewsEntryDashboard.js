@@ -11,11 +11,20 @@ const NewsEntryDashboard = () => {
   }
 
   return (
-    <div className="d-flex">
-      <Sidebar userRole={userRole} />
-      <div>
-        <h2>Welcome to the News Entry Dashboard</h2>
-        <p>This is the dashboard for News Entry.</p>
+    <div className="container-fluid">
+      <div className="row">
+        <Sidebar userRole={userRole} />
+        <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <div className="pt-3 pb-2 mb-3">
+            <h2 className="h4">Welcome to the News Entry Dashboard</h2>
+            <p className="lead">This is the dashboard for News Entry.</p>
+            <div className="card shadow">
+              <div className="card-body">
+                <h5 className="card-title">Sync Digital Solutions</h5>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   );

@@ -21,8 +21,7 @@ const SuperAdminDashboard = () => {
               <div className="card-header">Card Title 1</div>
               <div className="card-body">
                 <p className="card-text">
-                  This is a sample card content. You can add more cards here
-                  with relevant information for the SuperAdmin.
+                Lydia Horkos
                 </p>
               </div>
             </div>
