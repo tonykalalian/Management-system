@@ -1,11 +1,11 @@
+// controllers/newsController.js
 const News = require("../models/News");
 const NewsPicture = require("../models/NewsPicture");
+
 // Get all news
-// Backend: newsController.js
 exports.getAllNews = async (req, res) => {
   try {
     const news = await News.find().populate("category");
-
     res.status(200).json(news);
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
@@ -17,17 +17,17 @@ exports.createNews = async (req, res) => {
   try {
     const { category, title, content, date, addedBy, pictures } = req.body;
 
-    // Save the news entry
     const newNews = new News({
       category,
       title,
       content,
       date,
       addedBy,
+      pictures: [],
     });
+
     const savedNews = await newNews.save();
 
-    // Save the news pictures and add their references to the news entry
     if (pictures && Array.isArray(pictures)) {
       const savedPictures = await Promise.all(
         pictures.map(async (pictureUrl) => {
@@ -44,9 +44,11 @@ exports.createNews = async (req, res) => {
 
     res.status(201).json({ message: "News entry created successfully" });
   } catch (error) {
+    console.error("Error creating news:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
 // Get a news entry by ID
 exports.getNewsById = async (req, res) => {
   try {
@@ -100,14 +102,12 @@ exports.deleteNews = async (req, res) => {
   }
 };
 
+// Create a new news entry with pictures
 exports.addNewsWithPictures = async (req, res) => {
   try {
     const { category, title, content, date, addedBy } = req.body;
-
-    // Handle pictures (assuming "pictures" is the name attribute of the input element)
     const pictures = req.files;
 
-    // Create a new News entry with pictures
     const newNews = new News({
       category,
       title,
@@ -117,7 +117,33 @@ exports.addNewsWithPictures = async (req, res) => {
       pictures: pictures.map((picture) => ({ filePath: picture.path })),
     });
 
-    // Save the news entry
+    await newNews.save();
+
+    res
+      .status(201)
+      .json({ message: "News entry created successfully", news: newNews });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// Create a new news entry by the authenticated user
+exports.addNewsByUser = async (req, res) => {
+  try {
+    const { category, title, content, date } = req.body;
+    const addedBy = req.user._id; // Assuming the authenticated user's ID is stored in req.user
+
+    const pictures = req.files;
+
+    const newNews = new News({
+      category,
+      title,
+      content,
+      date,
+      addedBy,
+      pictures: pictures.map((picture) => ({ filePath: picture.path })),
+    });
+
     await newNews.save();
 
     res
