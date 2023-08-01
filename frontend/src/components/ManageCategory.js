@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageCategory = () => {
   const [categories, setCategories] = useState([]);
-  const [formData, setFormData] = useState({
-    code: "",
-    title: "",
-  });
+  const [formData, setFormData] = useState({ code: "", title: "" });
   const [editingCategoryId, setEditingCategoryId] = useState(null);
+  const [deletingCategoryId, setDeletingCategoryId] = useState(null);
 
-  // Fetch the list of categories from the backend API
   useEffect(() => {
     getCategories();
   }, []);
@@ -24,20 +23,14 @@ const ManageCategory = () => {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleEdit = (categoryId) => {
     const categoryToEdit = categories.find(
       (category) => category._id === categoryId
     );
-    setFormData({
-      code: categoryToEdit.code,
-      title: categoryToEdit.title,
-    });
+    setFormData({ code: categoryToEdit.code, title: categoryToEdit.title });
     setEditingCategoryId(categoryId);
   };
 
@@ -45,37 +38,44 @@ const ManageCategory = () => {
     e.preventDefault();
     try {
       if (editingCategoryId) {
-        // Update the category
         await axios.put(
           `http://localhost:3000/categories/${editingCategoryId}`,
           formData
         );
+        toast.info("Successfully updated!");
       } else {
-        // Create a new category on the backend
         await axios.post("http://localhost:3000/categories", formData);
+        toast.success("Successfully added!");
       }
-      // Fetch updated list of categories
       getCategories();
-      // Clear form fields
-      setFormData({
-        code: "",
-        title: "",
-      });
-      // Reset editingCategoryId to null
+      setFormData({ code: "", title: "" });
       setEditingCategoryId(null);
     } catch (error) {
       console.error("Error creating/updating category:", error);
+      toast.error("An error occurred while saving the category.");
     }
   };
 
-  const handleDelete = async (categoryId) => {
+  const handleDeleteClick = (categoryId) => {
+    setDeletingCategoryId(categoryId);
+  };
+
+  const handleCancelDelete = () => {
+    setDeletingCategoryId(null);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
-      // Delete category on the backend
-      await axios.delete(`http://localhost:3000/categories/${categoryId}`);
-      // Fetch updated list of categories
+      await axios.delete(
+        `http://localhost:3000/categories/${deletingCategoryId}`
+      );
       getCategories();
+      toast.error("Successfully deleted!");
     } catch (error) {
       console.error("Error deleting category:", error);
+      toast.error("An error occurred while deleting the category.");
+    } finally {
+      setDeletingCategoryId(null);
     }
   };
 
@@ -142,7 +142,7 @@ const ManageCategory = () => {
                       </button>
                       <button
                         className="btn btn-danger"
-                        onClick={() => handleDelete(category._id)}
+                        onClick={() => handleDeleteClick(category._id)}
                       >
                         Delete
                       </button>
@@ -154,6 +154,55 @@ const ManageCategory = () => {
           </tbody>
         </table>
       </div>
+
+      <div
+        className={`modal fade ${deletingCategoryId ? "show" : ""}`}
+        id="confirmDeleteModal"
+        tabIndex="-1"
+        aria-labelledby="confirmDeleteModalLabel"
+        aria-hidden={!deletingCategoryId}
+        style={{ display: deletingCategoryId ? "block" : "none" }}
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="confirmDeleteModalLabel">
+                Confirm Delete
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                onClick={handleCancelDelete}
+              ></button>
+            </div>
+            <div className="modal-body">
+              Are you sure you want to delete this category?
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onClick={handleCancelDelete}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={handleConfirmDelete}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Toast Container */}
+      <ToastContainer />
     </div>
   );
 };

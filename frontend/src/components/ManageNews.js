@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageNews = () => {
-  // State variables
   const [newsList, setNewsList] = useState([]);
   const [users, setUsers] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -17,15 +20,15 @@ const ManageNews = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [currentNewsId, setCurrentNewsId] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [newsToDeleteId, setNewsToDeleteId] = useState("");
 
-  // Fetch the list of news, users, and categories on component mount
   useEffect(() => {
     fetchNews();
     fetchUsers();
     fetchCategories();
   }, []);
 
-  // Fetch news from the backend
   const fetchNews = async () => {
     try {
       const response = await axios.get(
@@ -37,7 +40,6 @@ const ManageNews = () => {
     }
   };
 
-  // Fetch users from the backend
   const fetchUsers = async () => {
     try {
       const response = await axios.get("http://localhost:3000/users");
@@ -47,17 +49,16 @@ const ManageNews = () => {
     }
   };
 
-  // Fetch categories from the backend
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:3000/categories");
       const categoriesData = response.data;
-      setCategories(categoriesData); // Set categories to the fetched data
+      setCategories(categoriesData);
     } catch (error) {
       console.log("Error fetching categories:", error);
     }
   };
-  // Handle form input changes
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -65,7 +66,6 @@ const ManageNews = () => {
     });
   };
 
-  // Handle adding a picture URL to the pictures array
   const handleAddPictureUrl = () => {
     if (formData.pictureUrl.trim() !== "") {
       setFormData({
@@ -76,7 +76,6 @@ const ManageNews = () => {
     }
   };
 
-  // Handle form submission for creating/updating news
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -95,11 +94,12 @@ const ManageNews = () => {
           `http://localhost:3000/news/${currentNewsId}`,
           newsData
         );
+        toast.success("News successfully updated.");
       } else {
         await axios.post("http://localhost:3000/news", newsData);
+        toast.success("News successfully added.");
       }
 
-      // Clear form data and fetch the updated news entries
       setFormData({
         category: "",
         title: "",
@@ -117,7 +117,6 @@ const ManageNews = () => {
     }
   };
 
-  // Handle editing a news entry
   const handleEdit = (news) => {
     setFormData({
       category: news.category._id,
@@ -130,19 +129,29 @@ const ManageNews = () => {
     });
     setIsEditing(true);
     setCurrentNewsId(news._id);
+    toast.info("Editing news entry.");
   };
 
-  // Handle deleting a news entry
   const handleDelete = async (newsId) => {
+    setNewsToDeleteId(newsId);
+    setShowDeleteModal(true);
+  };
+
+  const hideDeleteConfirmationModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/news/${newsId}`);
+      await axios.delete(`http://localhost:3000/news/${newsToDeleteId}`);
+      toast.error("News successfully deleted.");
       fetchNews();
+      hideDeleteConfirmationModal();
     } catch (error) {
       console.log("Error deleting news:", error);
     }
   };
 
-  // Function to get the full name of the user based on user ID
   const getUserName = (userId) => {
     const user = users.find((user) => user._id === userId);
     if (user) {
@@ -153,7 +162,6 @@ const ManageNews = () => {
 
   return (
     <div className="container mt-4">
-      {/* Form for creating/updating news */}
       <h2>News Management</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -194,14 +202,15 @@ const ManageNews = () => {
           <label htmlFor="content" className="form-label">
             Content
           </label>
-          <textarea
-            className="form-control"
-            id="content"
-            name="content"
-            value={formData.content}
-            onChange={handleChange}
+          <CKEditor
+            editor={ClassicEditor}
+            data={formData.content}
+            onChange={(event, editor) => {
+              const content = editor.getData();
+              setFormData({ ...formData, content });
+            }}
             required
-          ></textarea>
+          />
         </div>
         <div className="mb-3">
           <label htmlFor="date" className="form-label">
@@ -276,7 +285,6 @@ const ManageNews = () => {
         </button>
       </form>
 
-      {/* Table to display the list of news */}
       <h3 className="mt-4">News List</h3>
       <table className="table table-striped">
         <thead>
@@ -298,7 +306,6 @@ const ManageNews = () => {
                   ? news.category.title
                   : "Unknown Category"}
               </td>
-
               <td>{news.title}</td>
               <td>{news.content}</td>
               <td>{new Date(news.date).toDateString()}</td>
@@ -334,6 +341,54 @@ const ManageNews = () => {
           ))}
         </tbody>
       </table>
+
+      <div
+        className={`modal fade ${showDeleteModal ? "show" : ""}`}
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="deleteConfirmationModal"
+        style={{ display: showDeleteModal ? "block" : "none" }}
+      >
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="deleteConfirmationModal">
+                Delete News
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                onClick={hideDeleteConfirmationModal}
+              ></button>
+            </div>
+            <div className="modal-body">
+              Are you sure you want to delete this news entry?
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+                onClick={hideDeleteConfirmationModal}
+              >
+                No
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={handleConfirmDelete}
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ToastContainer to display toast notifications */}
+      <ToastContainer />
     </div>
   );
 };
