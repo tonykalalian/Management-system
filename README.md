@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 # News Application Backend for Sync-Digital-Solutions
 
 This is the backend repository for the News Application built using the MERN stack (MongoDB, Express, React, and Node.js).
