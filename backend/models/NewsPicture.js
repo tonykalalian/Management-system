@@ -1,4 +1,3 @@
-// models/NewsPicture.js
 const mongoose = require("mongoose");
 
 const newsPictureSchema = new mongoose.Schema({

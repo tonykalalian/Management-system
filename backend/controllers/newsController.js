@@ -1,4 +1,3 @@
-// controllers/newsController.js
 const News = require("../models/News");
 const NewsPicture = require("../models/NewsPicture");
 

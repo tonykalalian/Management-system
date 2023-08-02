@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
-// Database connection URL (Update this with your MongoDB connection URL)
+// Database connection URL
 const dbUrl = process.env.dbUrl;
 
-// Database connection options (if needed)
+// Database connection options
 const dbOptions = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -19,5 +19,4 @@ mongoose
     console.error("Database connection failed:", error.message);
   });
 
-// Export the mongoose object (optional, you can also use require() in other files)
 module.exports = mongoose;
