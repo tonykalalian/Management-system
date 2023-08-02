@@ -241,7 +241,7 @@ const ManageNews = () => {
             <option value="">Select a user</option>
             {users.map((user) => (
               <option key={user._id} value={user._id}>
-                {user.fname} {user.lname} ({user.username})
+                {user.fname} {user.lname}
               </option>
             ))}
           </select>
@@ -307,7 +307,9 @@ const ManageNews = () => {
                   : "Unknown Category"}
               </td>
               <td>{news.title}</td>
-              <td>{news.content}</td>
+              <td>
+                <div dangerouslySetInnerHTML={{ __html: news.content }} />
+              </td>
               <td>{new Date(news.date).toDateString()}</td>
               <td>{getUserName(news.addedBy)}</td>
               <td>
@@ -387,7 +389,6 @@ const ManageNews = () => {
         </div>
       </div>
 
-      {/* ToastContainer to display toast notifications */}
       <ToastContainer />
     </div>
   );

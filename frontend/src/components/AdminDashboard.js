@@ -46,7 +46,7 @@ const AdminDashboard = () => {
     },
     series: [
       {
-        name: "Obesity",
+        name: "Sync",
         data: [12, 19, 3, 5, 2],
       },
     ],
@@ -54,7 +54,13 @@ const AdminDashboard = () => {
 
   const pieChartData = {
     options: {
-      labels: ["Carbs", "Protein", "Fibers", "Vitamins", "Fats"],
+      labels: [
+        "Digital Marketing",
+        "SEO Specialist",
+        "Web Development",
+        "Mobile Develppment",
+        "Software Solutions",
+      ],
     },
     series: [30, 25, 20, 15, 10],
   };
@@ -68,7 +74,7 @@ const AdminDashboard = () => {
           <Row>
             <Col md={6}>
               <CustomCard>
-                <CardTitle>Admin Chart 1</CardTitle>
+                <CardTitle>Our Projects</CardTitle>
                 <ApexCharts
                   options={chartData.options}
                   series={chartData.series}
@@ -79,7 +85,7 @@ const AdminDashboard = () => {
             </Col>
             <Col md={6}>
               <CustomCard>
-                <CardTitle>Admin Chart 2</CardTitle>
+                <CardTitle>Sync Features</CardTitle>
                 <ApexCharts
                   options={pieChartData.options}
                   series={pieChartData.series}
@@ -92,14 +98,14 @@ const AdminDashboard = () => {
           <Row>
             <Col md={6}>
               <CustomCard>
-                <CardTitle>Our Nutritionist</CardTitle>
-                <CardContent>Lydia Horkos</CardContent>
+                <CardTitle>Our Web Developer</CardTitle>
+                <CardContent>Tony kalalian</CardContent>
               </CustomCard>
             </Col>
             <Col md={6}>
               <CustomCard>
-                <CardTitle>Our Trainer</CardTitle>
-                <CardContent>Tony Kalalian</CardContent>
+                <CardTitle>Tony's tech leader</CardTitle>
+                <CardContent>Fouad Kilani</CardContent>
               </CustomCard>
             </Col>
           </Row>

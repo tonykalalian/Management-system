@@ -51,7 +51,7 @@ const SuperAdminDashboard = () => {
     },
     series: [
       {
-        name: "Obesity",
+        name: "Programming",
         data: [12, 19, 3, 5, 2],
       },
     ],
@@ -59,7 +59,7 @@ const SuperAdminDashboard = () => {
 
   const pieChartData = {
     options: {
-      labels: ["Carbs", "Protein", "Fibers", "Vitamins", "Fats"],
+      labels: ["Java", "C#", "C++", "Javascript", "Python"],
     },
     series: [30, 25, 20, 15, 10],
   };
@@ -73,7 +73,7 @@ const SuperAdminDashboard = () => {
           <div className="row">
             <div className="col-md-6">
               <Card>
-                <CardTitle>Obesity Chart</CardTitle>
+                <CardTitle>Programming Chart</CardTitle>
                 <ApexCharts
                   options={chartData.options}
                   series={chartData.series}
