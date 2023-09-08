@@ -201,7 +201,6 @@ const ManageCategory = () => {
         </div>
       </div>
 
-      {/* Toast Container */}
       <ToastContainer />
     </div>
   );

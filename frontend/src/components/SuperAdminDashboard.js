@@ -38,7 +38,6 @@ const ChartContainer = styled.div`
 const SuperAdminDashboard = () => {
   const userRole = localStorage.getItem("userRole");
 
-  // Access control logic for SuperAdminDashboard
   if (userRole !== "SuperAdmin") {
     return <div>You don't have access to this page.</div>;
   }

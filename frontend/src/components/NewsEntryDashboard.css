@@ -1,17 +1,12 @@
-/* NewsEntryDashboard.css */
-
-/* Global Styles */
 body {
   font-family: "Arial", sans-serif;
 }
 
-/* Container Styles */
 .crazy-container {
   background-color: #f4f4f4;
   padding: 20px;
 }
 
-/* Sidebar Styles */
 .sidebar {
   background-color: #333;
   color: #fff;
@@ -20,7 +15,6 @@ body {
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Category List Styles */
 .crazy-list-item {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -35,7 +29,6 @@ body {
   color: #fff;
 }
 
-/* Card Styles */
 .crazy-card {
   border: none;
   transition: transform 0.3s, box-shadow 0.3s;
@@ -73,7 +66,6 @@ body {
   color: #007bff;
 }
 
-/* Heading Styles */
 .crazy-heading {
   font-size: 2.5rem;
   margin-bottom: 30px;
@@ -81,14 +73,12 @@ body {
   color: #333;
 }
 
-/* Category Heading Styles */
 .crazy-category-heading {
   font-size: 1.5rem;
   margin-bottom: 20px;
   color: #333;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .crazy-category-heading {
     text-align: center;

@@ -28,11 +28,9 @@ const Login = () => {
       const { token, user } = response.data;
       const userRole = user.role;
 
-      // Store the token and user role in local storage (or use a more secure method like cookies)
       localStorage.setItem("token", token);
       localStorage.setItem("userRole", userRole);
 
-      // Redirect to the appropriate dashboard based on the user's role
       if (userRole === "SuperAdmin") {
         history.push("/dashboard/superadmin");
       } else if (userRole === "Admin") {

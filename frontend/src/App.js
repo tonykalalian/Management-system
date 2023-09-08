@@ -17,7 +17,6 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState("");
 
-  // Check if the user is already logged in (e.g., after a page refresh)
   useEffect(() => {
     const token = localStorage.getItem("token");
     const role = localStorage.getItem("userRole");
@@ -27,7 +26,6 @@ const App = () => {
     }
   }, []);
 
-  // Handle successful login
   const handleLogin = (role) => {
     setIsLoggedIn(true);
     setUserRole(role);
@@ -40,7 +38,6 @@ const App = () => {
     setUserRole("");
   };
 
-  // Redirect to the appropriate dashboard based on the user's role
   const renderDashboard = () => {
     if (!isLoggedIn) {
       return <Redirect to="/" />;
@@ -86,7 +83,7 @@ const App = () => {
         />{" "}
         <Route exact path="/dashboard/managenews" component={ManageNews} />{" "}
         <Route exact path="/dashboard/addnews" component={AddNews} />{" "}
-        <Route component={Login} /> {/* Default route for Login component */}
+        <Route component={Login} />
       </Switch>
     </Router>
   );

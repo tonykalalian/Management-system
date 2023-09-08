@@ -76,11 +76,9 @@ const Sidebar = ({ userRole, handleLogout }) => {
   }
 
   const handleLogoutClick = () => {
-    // Clear any user-related data from localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("userRole");
 
-    // Redirect to the login page
     history.push("/");
   };
 

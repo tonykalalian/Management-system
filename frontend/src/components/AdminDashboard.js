@@ -33,7 +33,6 @@ const CardContent = styled.p`
 const AdminDashboard = () => {
   const userRole = localStorage.getItem("userRole");
 
-  // Access control logic for AdminDashboard
   if (userRole !== "Admin") {
     return <div>You don't have access to this page.</div>;
   }
