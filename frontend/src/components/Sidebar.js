@@ -123,7 +123,7 @@ const Sidebar = ({ userRole, handleLogout }) => {
         </svg>
         <span className="fs-4" style={{ cursor: "pointer" }}>
           <BiSync />
-          Sync
+          TMT
         </span>
       </div>
       <hr />

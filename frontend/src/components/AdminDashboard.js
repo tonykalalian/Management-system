@@ -84,7 +84,7 @@ const AdminDashboard = () => {
             </Col>
             <Col md={6}>
               <CustomCard>
-                <CardTitle>Sync Features</CardTitle>
+                <CardTitle>TMT Features</CardTitle>
                 <ApexCharts
                   options={pieChartData.options}
                   series={pieChartData.series}
@@ -103,8 +103,8 @@ const AdminDashboard = () => {
             </Col>
             <Col md={6}>
               <CustomCard>
-                <CardTitle>Tony's tech leader</CardTitle>
-                <CardContent>Fouad Kilani</CardContent>
+                <CardTitle>Tech leader</CardTitle>
+                <CardContent>Tony Kalalian</CardContent>
               </CustomCard>
             </Col>
           </Row>

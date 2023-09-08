@@ -95,16 +95,22 @@ const SuperAdminDashboard = () => {
           </div>
         </ChartContainer>
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-md-4">
             <Card>
-              <CardTitle>HR</CardTitle>
-              <CardContent>Elsy Daoud</CardContent>
+              <CardTitle>Python Developer</CardTitle>
+              <CardContent>Taha Al Assaad</CardContent>
             </Card>
           </div>
-          <div className="col-md-6">
+          <div className="col-md-4">
             <Card>
-              <CardTitle>Tech Leader</CardTitle>
-              <CardContent>Fouad Kilani</CardContent>
+              <CardTitle>Full Stack Engineer</CardTitle>
+              <CardContent>Tony Kalalian</CardContent>
+            </Card>
+          </div>
+          <div className="col-md-4">
+            <Card>
+              <CardTitle>Database Administrator</CardTitle>
+              <CardContent>Mohamad El Hassan</CardContent>
             </Card>
           </div>
         </div>
@@ -113,8 +119,7 @@ const SuperAdminDashboard = () => {
             <Card>
               <CardTitle>Additional Information</CardTitle>
               <CardContent>
-                This is the SuperAdminDashboard in my technical test for sync
-                digital solutions
+                This is the SuperAdminDashboard for my TMT company
               </CardContent>
             </Card>
           </div>
